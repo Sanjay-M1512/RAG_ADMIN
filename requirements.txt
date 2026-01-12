@@ -1,5 +1,6 @@
 flask
 flask-jwt-extended
+flask-cors
 pymongo
 python-dotenv
 pypdf
@@ -8,4 +9,3 @@ sentence-transformers
 groq
 pinecone
 gunicorn
-flask-cors

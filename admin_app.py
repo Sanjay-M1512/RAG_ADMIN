@@ -119,7 +119,6 @@ def store_chunks(chunks, document_id):
 # -----------------------------
 # AUTH (ADMIN)
 # -----------------------------
-
 @app.route("/admin/register", methods=["POST"])
 def admin_register():
     data = request.json
@@ -162,7 +161,6 @@ def admin_logout():
 # -----------------------------
 # ADMIN PROFILE (JWT ONLY HERE)
 # -----------------------------
-
 @app.route("/admin/profile", methods=["GET"])
 @jwt_required()
 def admin_profile():
@@ -193,7 +191,6 @@ def update_admin_profile():
 # -----------------------------
 # DOCUMENT UPLOAD (PUBLIC)
 # -----------------------------
-
 @app.route("/admin/upload", methods=["POST"])
 def admin_upload():
     if "file" not in request.files:
@@ -241,7 +238,6 @@ def admin_upload():
 # -----------------------------
 # GET DOCUMENTS (PUBLIC)
 # -----------------------------
-
 @app.route("/admin/documents", methods=["GET"])
 def get_documents():
     board = request.args.get("board")
@@ -263,7 +259,6 @@ def get_documents():
 # -----------------------------
 # UPDATE DOCUMENT (PUBLIC)
 # -----------------------------
-
 @app.route("/admin/document/<document_id>", methods=["PUT"])
 def update_document(document_id):
     data = request.json
@@ -278,7 +273,6 @@ def update_document(document_id):
 # -----------------------------
 # DELETE DOCUMENT (PUBLIC)
 # -----------------------------
-
 @app.route("/admin/document/<document_id>", methods=["DELETE"])
 def delete_document(document_id):
     documents_col.delete_one({"document_id": document_id})
