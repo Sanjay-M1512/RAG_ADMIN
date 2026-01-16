@@ -284,6 +284,64 @@ def delete_document(document_id):
     return jsonify({"message": "Document deleted successfully"})
 
 # -----------------------------
+# GET STATEBOARD DOCUMENTS
+# -----------------------------
+@app.route("/admin/stateboard/documents", methods=["GET"])
+def get_stateboard_documents():
+    class_ = request.args.get("class")
+    subject = request.args.get("subject")
+    group = request.args.get("group")
+    limit = int(request.args.get("limit", 20))
+
+    query = {}
+    if class_:
+        query["class"] = class_
+    if subject:
+        query["subject"] = subject
+    if group:
+        query["group"] = group
+
+    state_docs = list(stateboard_col.find(query, {"_id": 0}).limit(limit))
+
+    # Fetch full document details
+    document_ids = [doc["document_id"] for doc in state_docs]
+    documents = list(documents_col.find(
+        {"document_id": {"$in": document_ids}},
+        {"_id": 0}
+    ))
+
+    return jsonify(documents)
+
+# -----------------------------
+# GET CBSE DOCUMENTS
+# -----------------------------
+@app.route("/admin/cbse/documents", methods=["GET"])
+def get_cbse_documents():
+    class_ = request.args.get("class")
+    subject = request.args.get("subject")
+    group = request.args.get("group")
+    limit = int(request.args.get("limit", 20))
+
+    query = {}
+    if class_:
+        query["class"] = class_
+    if subject:
+        query["subject"] = subject
+    if group:
+        query["group"] = group
+
+    cbse_docs = list(cbse_col.find(query, {"_id": 0}).limit(limit))
+
+    # Fetch full document details
+    document_ids = [doc["document_id"] for doc in cbse_docs]
+    documents = list(documents_col.find(
+        {"document_id": {"$in": document_ids}},
+        {"_id": 0}
+    ))
+
+    return jsonify(documents)
+
+# -----------------------------
 # RUN SERVER
 # -----------------------------
 if __name__ == "__main__":

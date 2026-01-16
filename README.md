@@ -196,49 +196,12 @@ Authorization: Bearer <JWT_TOKEN>
 ```
 
 ---
+------------------------------------------------------------------------
 
-## ⚙️ Deployment Summary
+## 🌍 Deployment
 
-- Server: **AWS EC2**
-- Web Server: **Nginx**
-- App Server: **Gunicorn**
-- Vector DB: **Pinecone**
-- Database: **MongoDB Atlas**
-- Auth: **JWT**
-- Embeddings: **Sentence Transformers (CPU)**
+Hosted on **AWS EC2** with Nginx + systemd  
+Base URL:
 
----
+    http://13.60.138.201
 
-## 🚀 Auto Start (systemd)
-
-Service: `rag-admin.service`
-
-```bash
-sudo systemctl start rag-admin
-sudo systemctl enable rag-admin
-sudo systemctl status rag-admin
-```
-
----
-
-## 🌐 Nginx Port Mapping
-
-| Port | Purpose |
-|------|--------|
-| 80 | Public API |
-| 6000 | Flask / Gunicorn |
-
----
-
-## 📌 Notes
-
-- JWT required only for:
-  - `/admin/profile`
-  - `/admin/update-profile`
-- Upload & document management endpoints are public.
-- Pinecone stores embeddings; MongoDB stores metadata.
-- No student queries handled here.
-
----
-
-🎉 **Admin backend is production-ready.**
