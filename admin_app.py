@@ -35,7 +35,7 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=1)
 jwt = JWTManager(app)
 
 # Enable CORS for all origins
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
 
 # -----------------------------
 # MongoDB Init
@@ -115,6 +115,13 @@ def store_chunks(chunks, document_id):
             }
         })
     index.upsert(vectors)
+    
+@app.after_request
+def after_request(response):
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+    response.headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+    return response
 
 # -----------------------------
 # AUTH (ADMIN)
