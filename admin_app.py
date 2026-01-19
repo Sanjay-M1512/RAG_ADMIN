@@ -35,13 +35,8 @@ app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=1)
 jwt = JWTManager(app)
 
 # Enable CORS for all origins
-CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+CORS(app, resources={r"/*": {"origins": "*"}})
 app.config['MAX_CONTENT_LENGTH'] = 200 * 1024 * 1024  # 200MB
-
-@app.before_request
-def handle_preflight():
-    if request.method == "OPTIONS":
-        return "", 200
 
 # -----------------------------
 # MongoDB Init
